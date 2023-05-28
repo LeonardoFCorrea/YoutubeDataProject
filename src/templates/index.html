@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Análise de Comentários do YouTube</title>
+    <style>
+        .container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type=text] {
+            width: 400px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #results {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Análise de Comentários do YouTube</h1>
+        <form action="/analisar" method="post">
+            <input type="text" name="video_link" placeholder="Insira o link do vídeo do YouTube">
+            <button type="submit">Analisar</button>
+        </form>
+
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+        {% endif %}
+
+        {% if comments %}
+            <div id="results">
+                <h2>Média de Sentimento: {{ average_score }}%</h2>
+                <p>Comentários Positivos: {{ positive_percentage }}%</p>
+                <p>Comentários Negativos: {{ negative_percentage }}%</p>
+                <h3>Comentários:</h3>
+                <ul>
+                    {% for comment in comments %}
+                        <li>{{ comment.author }} - {{ comment.sentiment }}: {{ comment.text }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
