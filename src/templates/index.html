@@ -2,40 +2,79 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Análise de Comentários do YouTube</title>
-    <link rel="stylesheet" href="../static/css/style.css" </head>
+    <title>Análise de Sentimento de Vídeos do YouTube</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
 
 <body>
     <div class="container">
-        <h1>Análise de Comentários do YouTube</h1>
-        <form action="/analisar" method="post">
-            <input type="text" name="video_link" placeholder="Insira o link do vídeo do YouTube">
+        <h2>Análise de Sentimento de Vídeos do YouTube</h2>
+        <form action="{{ url_for('analisar') }}" method="POST">
+            <input type="text" name="video_link" placeholder="Insira o link do vídeo">
+            <input type="text" name="video_link_second" placeholder="Insira o link do segundo vídeo">
             <button type="submit">Analisar</button>
         </form>
-
         {% if error_message %}
-        <p>{{ error_message }}</p>
-        {% endif %}
-
+        <p class="error">{{ error_message }}</p>
+        {% else %}
         {% if comments %}
-        <div id="results">
-            <h2>Média de Sentimento: {{ average_score }}%</h2>
-            <p>Comentários Positivos: {{ positive_percentage }}%</p>
-            <p>Comentários Negativos: {{ negative_percentage }}%</p>
-            <h3>Comentários:</h3>
-            <ul>
-                {% for comment in comments %}
-                <li>
-                    {{ comment.author }} - {% if comment.sentiment == 'NEGATIVE' %}<span
-                        style="color: red;">NEGATIVO</span>{% elif comment.sentiment == 'POSITIVE' %}<span
-                        style="color: green;">POSITIVO</span>{% endif %}: {{ comment.text }}
-                </li>
-                {% endfor %}
-            </ul>
+        <div class="row">
+            <div class="col-left">
+                <div id="results" class="analysis-section">
+                    <h3>Análise do Primeiro Vídeo</h3>
+                    <div class="sentiment">
+                        {% if video_name %}
+                        <h3>{{ video_name }}</h3>
+                        {% endif %}
+                        <p>Média de Sentimento: {{ average_score }}%</p>
+                        <p>Comentários Positivos: {{ positive_percentage }}%</p>
+                        <p>Comentários Negativos: {{ negative_percentage }}%</p>
+                    </div>
+                    <ul class="comments">
+                        {% for comment in comments %}
+                        <li>
+                            <span class="author">{{ comment.author }}:</span>
+                            <span
+                                class="{% if comment.sentiment == 'NEGATIVE' %}negative{% elif comment.sentiment == 'POSITIVE' %}positive{% endif %}">
+                                {{ comment.sentiment }}:
+                            </span>
+                            <span class="text">{{ comment.text }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <button id="compare-button" onclick="compareVideos()">Comparar</button>
+            <div class="col-right">
+                <div class="analysis-section">
+                    <h3>Análise do Segundo Vídeo</h3>
+                    <div class="sentiment">
+                        {% if video_name %}
+                        <h3>{{ video_name_second }}</h3>
+                        {% endif %}
+                        <p>Média de Sentimento: {{ average_score_second }}%</p>
+                        <p>Comentários Positivos: {{ positive_percentage_second }}%</p>
+                        <p>Comentários Negativos: {{ negative_percentage_second }}%</p>
+                    </div>
+                    <ul class="comments">
+                        {% for comment in comments_second %}
+                        <li>
+                            <span class="author">{{ comment.author }}:</span>
+                            <span
+                                class="{% if comment.sentiment == 'NEGATIVE' %}negative{% elif comment.sentiment == 'POSITIVE' %}positive{% endif %}">
+                                {{ comment.sentiment }}:
+                            </span>
+                            <span class="text">{{ comment.text }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
         {% endif %}
+        {% endif %}
     </div>
+    <script src="../static/js/compare.js"></script>
 </body>
 
 </html>

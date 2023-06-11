@@ -1,8 +1,35 @@
 .container {
-    max-width: 600px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.col-left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.col-right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.negative {
+    color: red;
+}
+
+.positive {
+    color: green;
 }
 
 h2 {
@@ -23,22 +50,19 @@ button[type="submit"] {
     padding: 10px 20px;
 }
 
-#results {
-    margin-top: 40px;
-}
 
 .sentiment {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .comments li {
     margin-bottom: 10px;
 }
 
-.negative {
-    color: red;
-}
-
-.positive {
-    color: green;
+.analysis-section {
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
 }

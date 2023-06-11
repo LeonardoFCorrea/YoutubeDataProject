@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import re
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from transformers import pipeline
+import json
 
 app = Flask(__name__)
 
@@ -32,67 +33,92 @@ def index():
 @app.route('/analisar', methods=['POST'])
 def analisar():
     video_link = request.form['video_link']
+    video_link_second = request.form['video_link_second']
 
     # Extrai o ID do vídeo a partir do link
     video_id = extract_video_id(video_link)
+    video_id_second = extract_video_id(video_link_second)
+
+    comments = []
+    comments_second = []
+    video_name = ''
+    video_name_second = ''
 
     if video_id:
-        # Configura a API do YouTube
-        api_key = 'AIzaSyAjABpgnQ6QLsLss7EDF9iRNz2kD0QT8Y8'  # Substitua pelo seu próprio API Key
-        youtube = build('youtube', 'v3', developerKey=api_key)
+        comments, average_score, positive_percentage, negative_percentage, video_name = process_video(video_id)
+    if video_id_second:
+        comments_second, average_score_second, positive_percentage_second, negative_percentage_second, video_name_second = process_video(video_id_second)
 
-        try:
-            # Faz a chamada da API para obter os comentários do vídeo
-            response = youtube.commentThreads().list(
-                part='snippet',
-                videoId=video_id,
-                textFormat='plainText',
-                maxResults=100
-            ).execute()
+    return render_template('index.html', comments=comments, average_score=average_score,
+                           positive_percentage=positive_percentage, negative_percentage=negative_percentage,
+                           video_name=video_name,
+                           comments_second=comments_second, average_score_second=average_score_second,
+                           positive_percentage_second=positive_percentage_second,
+                           negative_percentage_second=negative_percentage_second,
+                           video_name_second=video_name_second)
 
-            # Processa a resposta da API
-            comments = response['items']
+def process_video(video_id):
+    # Configura a API do YouTube
+    api_key = 'AIzaSyAjABpgnQ6QLsLss7EDF9iRNz2kD0QT8Y8'  # Substitua pela sua própria API Key
+    youtube = build('youtube', 'v3', developerKey=api_key)
 
-            # Ordena os comentários por relevância (número de gostos)
-            comments.sort(key=lambda x: x['snippet']['topLevelComment']['snippet']['likeCount'], reverse=True)
+    try:
+        # Faz a chamada da API para obter os comentários do vídeo
+        response = youtube.commentThreads().list(
+            part='snippet',
+            videoId=video_id,
+            textFormat='plainText',
+            maxResults=100
+        ).execute()
 
-            # Seleciona apenas os 10 melhores comentários
-            top_comments = comments[:10]
+        # Processa a resposta da API
+        comments = response['items']
 
-            analyzed_comments = []
-            total_score = 0
+        # Ordena os comentários por relevância (número de gostos)
+        comments.sort(key=lambda x: x['snippet']['topLevelComment']['snippet']['likeCount'], reverse=True)
 
-            for comment in top_comments:
-                snippet = comment['snippet']
-                author = snippet['topLevelComment']['snippet']['authorDisplayName']
-                text = snippet['topLevelComment']['snippet']['textDisplay']
+        # Seleciona apenas os 10 melhores comentários
+        top_comments = comments[:10]
 
-                # Calcula o sentimento do comentário
-                sentiment, score = calculate_sentiment(text)
+        analyzed_comments = []
+        total_score = 0
 
-                # Adiciona o comentário e o sentimento à lista
-                analyzed_comments.append({'author': author, 'text': text, 'sentiment': sentiment})
+        for comment in top_comments:
+            snippet = comment['snippet']
+            author = snippet['topLevelComment']['snippet']['authorDisplayName']
+            text = snippet['topLevelComment']['snippet']['textDisplay']
 
-                # Soma o score para calcular a média
-                total_score += score
+            # Calcula o sentimento do comentário
+            sentiment, score = calculate_sentiment(text)
 
-            # Calcula a média de sentimentos
-            average_score = total_score / len(top_comments)
-            average_score_formatted = '{:.2f}'.format(average_score * 100)
+            # Adiciona o comentário e o sentimento à lista
+            analyzed_comments.append({'author': author, 'text': text, 'sentiment': sentiment})
 
-            # Calcula o percentual de comentários positivos e negativos
-            positive_percentage = sum(comment['sentiment'] == 'POSITIVE' for comment in analyzed_comments) / len(analyzed_comments) * 100
-            negative_percentage = 100 - positive_percentage
+            # Soma o score para calcular a média
+            total_score += score
 
-            return render_template('index.html', comments=analyzed_comments, average_score=average_score_formatted,
-                                   positive_percentage=positive_percentage, negative_percentage=negative_percentage)
+        # Calcula a média de sentimentos
+        average_score = total_score / len(top_comments)
+        average_score_formatted = '{:.2f}'.format(average_score * 100)
 
-        except HttpError as e:
-            error_message = e.content.decode('utf-8')
-            return render_template('index.html', error_message=error_message)
-    else:
-        error_message = 'O link do vídeo é inválido'
-        return render_template('index.html', error_message=error_message)
+        # Calcula o percentual de comentários positivos e negativos
+        positive_percentage = sum(comment['sentiment'] == 'POSITIVE' for comment in analyzed_comments) / len(
+            analyzed_comments) * 100
+        negative_percentage = 100 - positive_percentage
+
+        # Obtém o nome do vídeo usando a API do YouTube
+        video_response = youtube.videos().list(
+            part='snippet',
+            id=video_id
+        ).execute()
+
+        video_name = video_response['items'][0]['snippet']['title']
+
+        return analyzed_comments, average_score_formatted, positive_percentage, negative_percentage, video_name
+
+    except HttpError as e:
+        error_message = e.content.decode('utf-8')
+        return [], None, None, None, None
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
