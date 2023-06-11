@@ -3,14 +3,25 @@
 
 <head>
     <title>Análise de Sentimento de Vídeos do YouTube</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('feed_palavras') }}">FeedPalavras</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
+
         <h2>Análise de Sentimento de Vídeos do YouTube</h2>
-        <form action="{{ url_for('analisar') }}" method="POST">
+        <form action="/analisar" method="POST">
             <input type="text" name="video_link" placeholder="Insira o link do vídeo">
             <input type="text" name="video_link_second" placeholder="Insira o link do segundo vídeo">
             <button type="submit">Analisar</button>
@@ -82,49 +93,50 @@
         function createComparisonChart() {
             // Obtém os dados dos vídeos
             var videoName = "{{ video_name }}";
-            var averageScore = {{ average_score }};
-            var positivePercentage = {{ positive_percentage }};
-            var negativePercentage = {{ negative_percentage }};
+            var averageScore = {{ average_score }}
+        };
+        var positivePercentage = {{ positive_percentage }};
+        var negativePercentage = {{ negative_percentage }};
 
-            var videoNameSecond = "{{ video_name_second }}";
-            var averageScoreSecond = {{ average_score_second }};
-            var positivePercentageSecond = {{ positive_percentage_second }};
-            var negativePercentageSecond = {{ negative_percentage_second }};
+        var videoNameSecond = "{{ video_name_second }}";
+        var averageScoreSecond = {{ average_score_second }};
+        var positivePercentageSecond = {{ positive_percentage_second }};
+        var negativePercentageSecond = {{ negative_percentage_second }};
 
-            // Cria o gráfico usando Chart.js
-            var ctx = document.getElementById('chart').getContext('2d');
-            var chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Média de Sentimento', 'Comentários Positivos', 'Comentários Negativos'],
-                    datasets: [{
-                            label: videoName,
-                            data: [averageScore, positivePercentage, negativePercentage],
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
-                        },
-                        {
-                            label: videoNameSecond,
-                            data: [averageScoreSecond, positivePercentageSecond, negativePercentageSecond],
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 1
-                        }
-                    ]
+        // Cria o gráfico usando Chart.js
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Média de Sentimento', 'Comentários Positivos', 'Comentários Negativos'],
+                datasets: [{
+                    label: videoName,
+                    data: [averageScore, positivePercentage, negativePercentage],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
                 },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                {
+                    label: videoNameSecond,
+                    data: [averageScoreSecond, positivePercentageSecond, negativePercentageSecond],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            });
+            }
+        });
 
-            // Role a página até o gráfico
-            document.getElementById('chart-section').scrollIntoView();
+        // Role a página até o gráfico
+        document.getElementById('chart-section').scrollIntoView();
         }
     </script>
 </body>

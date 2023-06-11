@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/css/feed.css">
+    <title>Feed Palavras</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                <li><a href="{{ url_for('feed_palavras') }}">FeedPalavras</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>Feed de Palavras YouTube</h2>
+        <form method="POST">
+            <input type="text" name="palavras_frequentes" placeholder="Pesquisar palavras frequentes">
+            <button type="submit">Pesquisar</button>
+        </form>
+
+        {% if palavra and videos %}
+        <h3>Vídeos relacionados à palavra-chave "{{ palavra }}"</h3>
+        <ul>
+            {% for video in videos %}
+            <li><a href="{{ video.url }}">{{ video.titulo }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+
+</html>

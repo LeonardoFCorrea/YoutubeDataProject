@@ -120,5 +120,40 @@ def process_video(video_id):
         error_message = e.content.decode('utf-8')
         return [], None, None, None, None
 
+@app.route('/feedPalavras', methods=['GET', 'POST'])
+def feed_palavras():
+    if request.method == 'POST':
+        palavra = request.form['palavras_frequentes']
+        
+        # Configurar a API do YouTube
+        api_key = 'AIzaSyAjABpgnQ6QLsLss7EDF9iRNz2kD0QT8Y8'
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        
+        # Realizar a busca dos vídeos com base na palavra-chave
+        search_request = youtube.search().list(
+            q=palavra,
+            part='snippet',
+            type='video',
+            maxResults=10
+        )
+        response = search_request.execute()
+        
+        videos = []
+        
+        # Extrair informações relevantes dos vídeos
+        for item in response['items']:
+            video_id = item['id']['videoId']
+            video_title = item['snippet']['title']
+            video_url = f'https://www.youtube.com/watch?v={video_id}'
+            
+            videos.append({
+                'titulo': video_title,
+                'url': video_url
+            })
+        
+        return render_template('feedPalavras.html', palavra=palavra, videos=videos)
+    
+    return render_template('feedPalavras.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
