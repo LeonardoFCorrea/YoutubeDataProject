@@ -56,6 +56,7 @@
                     </ul>
                 </div>
             </div>
+            <button id="compare-button" onclick="createComparisonChart()">Comparar</button>
             <div class="col-right">
                 <div class="analysis-section">
                     <h3>Análise do Segundo Vídeo</h3>
@@ -82,7 +83,6 @@
                 </div>
             </div>
         </div>
-        <button id="compare-button" onclick="createComparisonChart()">Comparar</button>
         <div id="chart-section">
             <canvas id="chart"></canvas>
         </div>
@@ -94,7 +94,6 @@
             // Obtém os dados dos vídeos
             var videoName = "{{ video_name }}";
             var averageScore = {{ average_score }}
-        };
         var positivePercentage = {{ positive_percentage }};
         var negativePercentage = {{ negative_percentage }};
 

@@ -134,6 +134,7 @@ def feed_palavras():
             q=palavra,
             part='snippet',
             type='video',
+            order='viewCount',
             maxResults=10
         )
         response = search_request.execute()
@@ -154,6 +155,7 @@ def feed_palavras():
         return render_template('feedPalavras.html', palavra=palavra, videos=videos)
     
     return render_template('feedPalavras.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

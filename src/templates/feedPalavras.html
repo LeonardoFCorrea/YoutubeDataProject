@@ -24,14 +24,25 @@
             <button type="submit">Pesquisar</button>
         </form>
 
-        {% if palavra and videos %}
-        <h3>Vídeos relacionados à palavra-chave "{{ palavra }}"</h3>
-        <ul>
-            {% for video in videos %}
-            <li><a href="{{ video.url }}">{{ video.titulo }}</a></li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+        <h2>Vídeos em Alta com a Palavra-chave: {{ palavra }}</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for video in videos %}
+                <tr>
+                    <td>{{ video.titulo }}</td>
+                    <td><a href="{{ video.url }}">{{ video.url }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
     </div>
 </body>
 
