@@ -1,8 +1,8 @@
 <h3>Project Description</h3>
-This project was carried out by computer science students at URI-Erechim (Integrated Regional University of Alto Uruguai e Missões) in order to create an online agenda using python and its text-to-speech modules. A Rest API was also created to link with the Google Calendar API.
+This project was carried out by computer science students at URI-Erechim (Integrated Regional University of Alto Uruguai e Missões) in order to create an online analiser for Youtube videos using python and its feelings detector modules. A Rest API was also created to link with the Google Youtube Data API.
 
 <h3>Libraries/Modules Used</h3>
-Para a execução deste projeto, algumas bibliotecas precisam ser instaladas. Segue a lista das bibliotecas e os comandos utilizados para instalá-las:<br />
+For the execution of this project, some libraries need to be installed. Below is the list of libraries and the commands used to install them:<br />
 
 - Flask: pip install flask<br />
 - google-api-python-client: pip install google-api-python-client<br />
