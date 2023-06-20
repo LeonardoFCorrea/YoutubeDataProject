@@ -10,14 +10,24 @@
 </head>
 
 <body>
-    <header>
-        <nav>
+    <div class="header">
+        <div class="sides">
+          <a href="#" class="logo">Youtube<span>Analiser</span></a>
+        </div>
+        <div class="info">
+            <h1>YOUTUBE ANALISER</h1>
+            <h4><a href="#category" class="a-class">UI DESIGN</a></h4>
+        </div>
+      </div>
+    <!-- <header>
+        <nav class="nav-box">
+            <h1 class="main-title">Youtube Analiser</h1>
             <ul>
                 <li><a href="{{ url_for('index') }}">Início</a></li>
                 <li><a href="{{ url_for('feed_palavras') }}">FeedPalavras</a></li>
             </ul>
         </nav>
-    </header>
+    </header> -->
     <div class="container">
 
         <h2>Análise de Sentimento de Vídeos do YouTube</h2>
