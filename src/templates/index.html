@@ -22,16 +22,7 @@
             </div>
         </div>
     </div>
-    <!-- <header>
-        <nav class="nav-box">
-            <h1 class="main-title">Youtube Analiser</h1>
-            <ul>
-                <li><a href="{{ url_for('index') }}">Início</a></li>
-                <li><a href="{{ url_for('feed_palavras') }}">FeedPalavras</a></li>
-            </ul>
-        </nav>
-    </header> -->
-    <div class="container">
+    <div class="container" id="myContainer">
 
         <h2>Análise de Sentimento de Vídeos do YouTube</h2>
         <form action="/analisar" method="POST">
@@ -108,15 +99,17 @@
                 </div>
             </div>
         </div>
-        <div id="chart-section">
+        <div id="chart-section" class="chart-section">
             <canvas id="chart"></canvas>
         </div>
         {% endif %}
         {% endif %}
     </div>
+    <script src='../static/js/script.js'></script>
     <script>
         function createComparisonChart() {
             // Obtém os dados dos vídeos
+            document.getElementById('chart-section').style.visibility = 'visible';
             var videoName = "{{ video_name }}";
             var averageScore = {{ average_score }}
         var positivePercentage = {{ positive_percentage }};
@@ -126,6 +119,7 @@
         var averageScoreSecond = {{ average_score_second }};
         var positivePercentageSecond = {{ positive_percentage_second }};
         var negativePercentageSecond = {{ negative_percentage_second }};
+
 
         // Cria o gráfico usando Chart.js
         var ctx = document.getElementById('chart').getContext('2d');
