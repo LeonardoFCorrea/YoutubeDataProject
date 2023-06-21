@@ -31,7 +31,7 @@ body::before {
     backface-visibility: hidden;
     scale: 1, 1;
     transform: translateZ(0);
-    background: #1b2030 url(https://images.unsplash.com/photo-1571993142257-eae0b44cf0f1?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ) 50% 0 no-repeat;
+    background: #1b2030 url("../imgs/background.jpg") 50% 0 no-repeat;
     background-size: 100%;
     background-attachment: fixed;
     z-index: -2;
@@ -39,7 +39,14 @@ body::before {
 
 .header a {
     color: #eee;
+    padding: 10px;
     margin-left: 20px;
+}
+
+.info-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .info h1 {
@@ -102,17 +109,6 @@ body::before {
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 
-.author {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: url(https://i.imgur.com/6DLCsZcb.jpg) center no-repeat;
-    background-size: cover;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-    margin-bottom: 3px;
-}
-
 @keyframes grow {
     0% {
         transform: scale(1) translateY(0px);
@@ -162,6 +158,7 @@ body {
 }
 
 .col-left {
+    height: 600px;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -169,6 +166,7 @@ body {
 }
 
 .col-right {
+    height: 600px;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -193,7 +191,7 @@ form {
 
 input[type="text"] {
     padding: 10px;
-    width: 100%;
+    width: 50%;
     margin-bottom: 10px;
 }
 
@@ -211,10 +209,13 @@ button[type="submit"] {
 }
 
 .analysis-section {
-    max-height: 600px;
+    max-height: 1000px;
+    height: 800px;
     overflow-y: auto;
     border: 1px solid #ccc;
     padding: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .nav-box {
@@ -293,9 +294,56 @@ button[type="submit"] {
 
 .logo span {
     color: #ffffff;
-    /* Cor branca */
 }
 
 .info h4 {
     margin-top: 40px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.video-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.video-link-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.video-link-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    float: left;
+}
+
+.scroll {
+    overflow: auto;
+    float: left;
+    margin: 0 10px;
+    border-radius: 30px 0px 0px 30px;
+}
+
+.scroll4::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scroll4::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 20px;
+}
+
+.scroll4::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 20px;
 }
