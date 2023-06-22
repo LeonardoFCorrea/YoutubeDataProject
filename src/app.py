@@ -59,7 +59,7 @@ def analisar():
 
 def process_video(video_id):
     # Configura a API do YouTube
-    api_key = 'AIzaSyAjABpgnQ6QLsLss7EDF9iRNz2kD0QT8Y8'  # Substitua pela sua própria API Key
+    api_key = 'AIzaSyDpTNlBKWJ2RWe7O47EzVkBlnXNkR8GNAg'  # Substitua pela sua própria API Key
     youtube = build('youtube', 'v3', developerKey=api_key)
 
     try:
@@ -126,7 +126,7 @@ def feed_palavras():
         palavra = request.form['palavras_frequentes']
         
         # Configurar a API do YouTube
-        api_key = 'AIzaSyAjABpgnQ6QLsLss7EDF9iRNz2kD0QT8Y8'
+        api_key = 'AIzaSyDpTNlBKWJ2RWe7O47EzVkBlnXNkR8GNAg'
         youtube = build('youtube', 'v3', developerKey=api_key)
         
         # Realizar a busca dos vídeos com base na palavra-chave
