@@ -8,16 +8,18 @@
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
-<body>
+    <div class="circle"></div>
     <div class="header">
         <div class="sides">
-            <a href="#" class="logo">Youtube<span>Analiser</span></a>
+            <a href="{{ url_for('index') }}" class="logo">Youtube<span>Analiser</span></a>
         </div>
+        <div class="spinner-box">
+            </div>  
+          </div>
+        <body>
         <div class="info">
             <h1>YOUTUBE ANALISER</h1>
             <div class="info-links">
-                <h4><a href="{{ url_for('index') }}" class="a-class">INDEX</a></h4>
                 <h4><a href="{{ url_for('feed_palavras') }}" class="a-class">FEED</a></h4>
             </div>
         </div>
@@ -26,14 +28,18 @@
 
         <h2>Análise de Sentimento de Vídeos do YouTube</h2>
         <form action="/analisar" method="POST">
-            <div class="video-links">
-                <div class="video-link-1">
-                    <label for="video_link">First Video:</label>
-                    <input type="text" name="video_link" placeholder="Insira o link do vídeo">
-                </div>
-                <div class="video-link-2">
-                    <label for="video_link">Second Video:</label>
-                    <input type="text" name="video_link_second" placeholder="Insira o link do segundo vídeo">
+            <div class="video-group">
+                <div class="video-links">
+                    <div class="video-link-1">
+                        <input type="text" name="video_link" placeholder="Enter the first youtube link"/><span class="highlight"></span><span class="bar"></span>
+                        <!-- <label for="video_link">First Video:</label>
+                        <input type="text" name="video_link" placeholder="Insira o link do vídeo"> -->
+                    </div>
+                    <div class="video-link-2">
+                        <input type="text" name="video_link" placeholder="Enter the second youtube link"/><span class="highlight"></span><span class="bar"></span>
+                        <!-- <label for="video_link">Second Video:</label>
+                        <input type="text" name="video_link_second" placeholder="Insira o link do segundo vídeo"> -->
+                    </div>
                 </div>
             </div>
             <button type="submit">Analise</button>
