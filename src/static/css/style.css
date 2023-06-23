@@ -162,6 +162,19 @@ body {
     border-radius: 200px;
 }
 
+.feedleft{
+    margin-left: 320px;
+}
+
+.buttonright{
+    margin-top: 35px;
+    margin-right: 340px;
+}
+
+.container.feed{
+    margin-left: 10px;
+}
+
 #myContainer {
     transition: opacity 0.5s ease;
 }

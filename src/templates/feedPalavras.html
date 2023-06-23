@@ -5,27 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/css/feed.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <title>Feed Palavras</title>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('index') }}">Início</a></li>
-                <li><a href="{{ url_for('feed_palavras') }}">FeedPalavras</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="circle"></div>
+    <div class="header">
+        <div class="sides">
+            <a href="{{ url_for('index') }}" class="logo">Youtube<span>Analiser</span></a>
+        </div>
+        <div class="spinner-box">
+            </div>  
+          </div>
+        <body>
+        <div class="info">
+            <h1>YOUTUBE ANALISER</h1>
+            <div class="info-links">
+                <h4><a href="{{ url_for('feed_palavras') }}" class="a-class">ANÁLISE</a></h4>
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
         <h2>Feed de Palavras YouTube</h2>
+        <div class="feedleft">
         <form method="POST">
-            <input type="text" name="palavras_frequentes" placeholder="Pesquisar palavras frequentes">
+            <input type="text" name="palavras_frequentes" placeholder="   Pesquisar palavras frequentes">
+            <div class="buttonright">
             <button type="submit">Pesquisar</button>
+        </div>
         </form>
-
+    </div>
         <h2>Vídeos em Alta com a Palavra-chave: {{ palavra }}</h2>
-
         <table>
             <thead>
                 <tr>
