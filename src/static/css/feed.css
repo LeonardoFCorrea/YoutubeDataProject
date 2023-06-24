@@ -1,8 +1,32 @@
-.container {
-    max-width: 1000px;
+.container-feed {
+    width: 75%;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    height: 120vh;
+    opacity: 0.7;
+    background-color: #202020;
+    filter: grayscale(50%);
+    width: 75%;
+    border-radius: 200px;
+}
+
+.container-feed h2 {
+    color: #ffffff;
+}
+
+.feedleft {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-feed form {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
 h2 {
@@ -21,4 +45,105 @@ input[type="text"] {
 
 button[type="submit"] {
     padding: 10px 20px;
+}
+
+table {
+    max-width: 100%;
+    background-color: #aac5db;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: arial;
+  }
+
+  .table {
+    border-bottom: #d0d5d8 solid 1px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .table th,
+  .table td {
+    border-right: #d0d5d8 solid 1px;
+    padding: 20px 30px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .table td:last-child {
+     border-right: 0;
+  }
+
+.table tbody td{
+    font-size: 16px;
+    text-align: center;
+  }
+  .table thead th {
+    font-weight: normal;
+    background-color: #3498db;
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .table tbody > tr:nth-child(odd) > td,
+  .table tbody > tr:nth-child(odd) > th {
+    background-color: #f8f8f8;
+  }
+
+/* Tornando a tabela responsiva*/
+
+/* para resoluções de até 767px */
+@media (max-width: 767px) { 
+  
+  /* Tabela responsiva */
+  .table-responsive {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+/*  Tabela funcionando como um bloco  */
+  .table-responsive thead,
+  .table-responsive tbody,
+  .table-responsive th,
+  .table-responsive td,
+  .table-responsive tr {
+    display: block;
+  }
+/* Defino um tamanho para as células */
+  .table-responsive td,
+  .table-responsive th {
+    height: 35px;
+  }
+  .table thead th {
+     font-size: 16px;
+  }
+  .table th,
+  .table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+/* thead é “flotado” esquerda para auxiliar na responsividade */
+  .table-responsive thead {
+    float: left;
+  }
+
+  .table-responsive tbody {
+    width: auto;
+    position: relative;
+   
+    overflow-x: auto;  /* scroll horizontal */
+    -webkit-overflow-scrolling: touch; /* Funcionamento para dispositivos touch */
+    white-space: nowrap;
+  }
+/*  Posicionando linhas lado-a-lado  */
+  .table-responsive tbody tr {
+    display: inline-block;
+  }
+
+  .table td:last-child {
+     border-right: #d0d5d8 solid 1px;
+  }
+
 }

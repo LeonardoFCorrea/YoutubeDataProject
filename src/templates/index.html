@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit">Analise</button>
+            <button type="submit" class="button sucess">Analise</button>
         </form>
         {% if error_message %}
         <p class="error">{{ error_message }}</p>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <button id="compare-button" onclick="createComparisonChart()">Comparar</button>
+            <button id="compare-button" class="compare-button" onclick="createComparisonChart()">Comparar</button>
             <div class="col-right">
                 <div class="scroll scroll4">
                     <div class="analysis-section">
@@ -112,6 +112,7 @@
         {% endif %}
     </div>
     <script src='../static/js/script.js'></script>
+    <script src='../static/js/button.js'></script>
     <script>
         function createComparisonChart() {
             // Obtém os dados dos vídeos
