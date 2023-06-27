@@ -4,21 +4,6 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from transformers import pipeline
 import json
-import subprocess
-import sys
-
-def install_dependencies():=
-    packages = [
-        'flask',
-        'google-api-python-client',
-        'google-auth',
-        'google-auth-oauthlib',
-        'transformers',
-        'tensorflow'
-    ]
-    
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', *packages])
-
 
 app = Flask(__name__)
 
@@ -171,6 +156,5 @@ def feed_palavras():
     
     return render_template('feedPalavras.html')
 
-install_dependencies()
 if __name__ == '__main__':
     app.run(debug=True)
