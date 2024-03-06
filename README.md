@@ -17,7 +17,7 @@ For the execution of this project, some libraries need to be installed. Below is
 3° Activate the virtual environment: .\venv\Scripts\activate venv<br />
 4° Install the necessary libraries: pip install ...<br />
 5° Run the app.py file: python app.py<br />
-6° Access the URL http://localhost:5000 to use the YoutubeData API<br />
+6° Access the URL http://localhost:5000 to use the YoutubeData AI<br />
 
 <h3>Additional Information</h3>
 For more information about the API used in this project, visit https://developers.google.com/youtube/?hl=pt_BR.
